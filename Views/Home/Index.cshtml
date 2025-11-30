@@ -1,0 +1,16 @@
+
+@model ProductsListViewModel
+
+@foreach (var p in Model.Products ?? Enumerable.Empty<Product>()) {
+     <partial name="ProductSummary" model="p" />
+}
+
+<nav aria-label="Page navigation example">
+     <ul class="pagination d-flex flex-wrap btn-group my-2"
+         page-model="@Model.PagingInfo" 
+         page-action="Index"
+         page-classes-enabled="true" 
+         page-class="page-item"
+         page-class-selected="active">
+     </ul>
+</nav>

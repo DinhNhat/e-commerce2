@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <title>SportsStore</title>
+    
+    <style>
+        :root {
+            --bd-violet-rgb: 112.520718,44.062154,249.437846;
+            --bg-my-color-light: 106, 108, 200;
+            --bg-my-color: 106, 70, 200;
+        }
+        
+        .custom-container {
+            margin: auto;
+            padding: 15px;
+            max-width: 992px;
+        }
+
+        #categories a {
+            color: rgba(0,0,0,0.65);
+            padding: .1875rem .5rem;
+            margin-top: .125rem;
+            margin-left: 1rem;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        #categories a.active {
+            font-weight: 700;
+            color: white;
+            background-color: rgba(var(--bg-my-color));
+        }
+        
+        #categories a:hover {
+            color: white;
+            background-color: rgba(var(--bg-my-color-light));
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-dark text-white p-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 d-flex align-items-center">
+                <a class="d-inline btn navbar-brand" role="button" asp-action="Index"
+                   asp-controller="Home"
+                   asp-route-category=""
+                   asp-route-productPage="1">E-STORE</a>
+            </div>
+            
+            <div class="col-6 navbar-text text-end">
+                <vc:cart-summary/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="custom-container row">
+    <div id="categories" class="my-3 my-sm-0 col-12 col-sm-3">
+        <vc:navigation-menu />
+    </div>
+    <div class="col-12 col-sm-9">
+        @RenderBody()
+    </div>
+</div>
+
+</body>
+</html>
