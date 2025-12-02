@@ -17,13 +17,13 @@ public class CartModel : PageModel
     public Cart Cart { get; set; }
     public string ReturnUrl { get; set; } = "/";
 
-    public void OnGet(string returnUrl) {
-        ReturnUrl = returnUrl ?? "/";
+    public void OnGet(string returnUrl)
+    {
+        ReturnUrl = (returnUrl != "") ? (returnUrl.Contains("Order") ? "/" : returnUrl): "/";
     }
 
     public IActionResult OnPost(long productId, string returnUrl) {
-        Product? product = repository.Products
-            .FirstOrDefault(p => p.ProductID == productId);
+        Product? product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
         if (product != null) {
             Cart.AddItem(product, 1);
             HttpContext.Session.SetJson("cart", Cart);

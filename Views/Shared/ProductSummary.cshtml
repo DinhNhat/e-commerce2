@@ -5,7 +5,7 @@
         <h4>
             @(Model.Name ?? "N/A")
             <span class="badge rounded-pill bg-primary bg-gradient text-white" style="float:right">
-                @{ var price = Model.Price.ToString("c") ?? "TBD"; } 
+                @{ var price = Model.Price.ToString("c", new System.Globalization.CultureInfo("en-CA")) ?? "TBD"; } 
                 <small>@price</small>
             </span>
         </h4>
