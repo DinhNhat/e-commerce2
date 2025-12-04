@@ -3,6 +3,9 @@
 <h2>Check out now</h2>
 <p>Please enter your details, and we'll ship your goods right away!</p>
 
+@if (TempData["scroll"] != null) {
+    <div id=@TempData["scroll"]></div>
+}
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form asp-action="Checkout" method="post">
@@ -50,3 +53,15 @@
         <input class="btn btn-primary" type="submit" value="Complete Order" />
     </div>
 </form>
+
+
+@if (TempData["scroll"] != null) {
+    <script>
+        function myScroll() {
+            const element = document.getElementById("scrollTo");
+            element?.scrollIntoView();
+        }
+    
+        myScroll();
+    </script>
+}

@@ -12,7 +12,7 @@ public class OrderController : Controller
         repository = repoService;
         cart = cartService;
     }
-    
+
     public ViewResult Checkout() => View(new Order());
     
     [HttpPost]
@@ -27,6 +27,7 @@ public class OrderController : Controller
             cart.Clear();
             return RedirectToPage("/Completed", new { orderId = order.OrderID });
         } else {
+            TempData["scroll"] = "scrollTo";
             return View();
         }
     }
