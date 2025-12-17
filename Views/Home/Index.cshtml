@@ -5,45 +5,32 @@
      <partial name="ProductSummary" model="p" />
 }
 
+@{
+    var pagination = Model.PaginationInfo;
+}
+
 <nav aria-label="Product Page Navigation" class="mt-4">
     <ul class="pagination justify-content-center">
 
-        <li class="page-item" disabled="@(Model.PaginationInfo.HasPreviousPage == false)">
-            <a class="page-link" 
-               asp-route-productPage="@(Model.PaginationInfo.PageIndex - 1)" 
-               aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-
-        @if (Model.PaginationInfo.PageNumbers.FirstOrDefault() > 1)
+        @foreach (var link in pagination.Links)
         {
-            <li class="page-item">
-                <a class="page-link" asp-route-productPage="1">1</a>
-            </li>
-            @if (Model.PaginationInfo.PageNumbers.FirstOrDefault() > 2)
-            {
-                <li class="page-item disabled"><span class="page-link">...</span></li>
-            }
-        }
-        
-        @foreach (var i in Model.PaginationInfo.PageNumbers)
-        {
-            <li class="page-item @(i == Model.PaginationInfo.PageIndex ? "active" : "")">
-                <a class="page-link" 
-                   asp-route-productPage="@i">
-                    @i
-                </a>
+            <li class="page-item @(link.IsCurrent ? "active" : "") @(link.IsDisabled ? "disabled" : "")">
+                
+                @if (link.IsEllipsis)
+                {
+                    <span class="page-link">...</span>
+                }
+                else
+                {
+                    <a class="page-link" 
+                       asp-route-productPage="@link.PageIndex" 
+                       aria-label="@link.Text"
+                       aria-current="@(link.IsCurrent ? "page" : null)">
+                        @link.Text
+                    </a>
+                }
             </li>
         }
-
-        <li class="page-item @(Model.PaginationInfo.HasNextPage ? "" : "disabled")">
-            <a class="page-link" 
-               asp-route-productPage="@(Model.PaginationInfo.PageIndex + 1)" 
-               aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
     </ul>
 </nav>
 
