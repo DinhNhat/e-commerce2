@@ -12,18 +12,17 @@ public class HomeController : Controller
     public HomeController(IStoreRepository repo) {
         repository = repo;
     }
-    
-    public IActionResult Index(string? category, int productPage = 1) 
-        => View(new ProductsListViewModel {
-            Products = repository.Products
-                .Where(p => category == null || p.Category == category)
-                .OrderBy(p => p.ProductID)
-                .Skip((productPage - 1) * PageSize)
-                .Take(PageSize),
-            PagingInfo = new PagingInfo {
-                CurrentPage = productPage,
-                ItemsPerPage = PageSize,
-                TotalItems = category == null ? repository.Products.Count() : repository.Products.Where(e => e.Category == category).Count()
-            }, CurrentCategory = category
-        });
+
+    public IActionResult Index(string? category, int productPage = 1)
+    {
+        var totalCount = category == null ? repository.Products.Count() : repository.Products.Where(e => e.Category == category).Count();
+        var products1 = repository.Products
+            .Where(p => category == null || p.Category == category)
+            .OrderBy(p => p.ProductID)
+            .Skip((productPage - 1) * PageSize)
+            .Take(PageSize);
+        var pagInfo = new PaginationInfo(totalCount, productPage, PageSize);
+        
+        return View(new ProductsListViewModel(products1, pagInfo, category));
+    }
 }

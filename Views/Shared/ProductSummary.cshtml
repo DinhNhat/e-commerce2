@@ -1,21 +1,16 @@
 @model Product
 
-<div class="shadow card card-outline-primary m-3 p-1 rounded">
+<div class="shadow card card-outline-primary m-3 p-3 rounded">
     <div class="bg-faded p-1">
-        <h4>
+        <h4 class="text-decoration-underline">
             @(Model.Name ?? "N/A")
-            <span class="badge rounded-pill bg-primary bg-gradient text-white" style="float:right">
-                @{ var price = Model.Price.ToString("c", new System.Globalization.CultureInfo("en-CA")) ?? "TBD"; } 
-                <small>@price</small>
-            </span>
         </h4>
         <h6>
-            Category: <small 
-                          class="d-inline-flex 
-                                mb-3 px-2 py-1 fw-semibold text-success 
-                                bg-success bg-opacity-10 border 
-                                border-success border-opacity-10 
-                                rounded-2">@(Model.Category ?? "No Category")</small>
+            Category: <small class="d-inline-flex px-2 py-1 fw-semibold bg-opacity-10 border border-success border-opacity-10 rounded-2">@(Model.Category ?? "No Category")</small>
+        </h6>
+        <h6 class="text-danger" style="font-weight: 600;">
+            @{ var price = Model.Price.ToString("c", new System.Globalization.CultureInfo("en-CA")) ?? "TBD"; } 
+            @price
         </h6>
         
     </div>
@@ -23,13 +18,12 @@
     
     <form id="@Model.ProductID" asp-page="/Cart" method="post">
         <input type="hidden" asp-for="ProductID" />
-        <input type="hidden" name="returnUrl"
-               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <span class="card-text p-1">
-            <button type="submit" style="float:right"
-                    class="btn btn-sm btn-success rounded-3 pull-right" >
-                Add To Cart
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <div class="d-flex justify-content-between">
+            <div></div>
+            <button type="submit" class="d-block mt-3 add-to-cart-btn">
+                <i class="fa-solid fa-cart-plus"></i> Add to Cart
             </button>
-        </span>
+        </div>
     </form>
 </div>

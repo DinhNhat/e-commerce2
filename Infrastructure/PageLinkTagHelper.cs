@@ -46,8 +46,7 @@ public class PageLinkTagHelper : TagHelper {
                 tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                 // tag.Attributes["href"] = urlHelper.Action(P
                 // ageAction, new { productPage = i });
-                if (PageClassesEnabled)
-                {
+                if (PageClassesEnabled) {
                     tag.AddCssClass("page-link");
                     tag.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
                 }
